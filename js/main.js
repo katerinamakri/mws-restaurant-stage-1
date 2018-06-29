@@ -1,8 +1,13 @@
+
 let restaurants,
   neighborhoods,
   cuisines
 var map
 var markers = []
+
+document.addEventListener('load', () => {
+  document.getElementsByTagName('iframe')[0].title = "Google Maps";
+});
 
 /**
  * Fetch neighborhoods and cuisines as soon as the page is loaded.
@@ -10,6 +15,7 @@ var markers = []
 document.addEventListener('DOMContentLoaded', (event) => {
   fetchNeighborhoods();
   fetchCuisines();
+  // document.getElementsByTagName('iframe')[0].title = "Google Maps";
 });
 
 /**
@@ -71,6 +77,7 @@ fillCuisinesHTML = (cuisines = self.cuisines) => {
  * Initialize Google map, called from HTML.
  */
 window.initMap = () => {
+  // document.getElementsByTagName('iframe')[0].title = "Google Maps";
   let loc = {
     lat: 40.722216,
     lng: -73.987501
@@ -82,6 +89,10 @@ window.initMap = () => {
   });
   updateRestaurants();
 }
+
+// google.maps.event.addListenerOnce(self.map, 'idle', () => {
+//   document.getElementsByTagName('iframe')[0].title = "Google Maps";
+// })
 
 /**
  * Update page and map for current restaurants.
@@ -140,6 +151,7 @@ createRestaurantHTML = (restaurant) => {
 
   const image = document.createElement('img');
   image.className = 'restaurant-img';
+  image.alt = restaurant.name ;
   image.src = DBHelper.imageUrlForRestaurant(restaurant);
   li.append(image);
 
