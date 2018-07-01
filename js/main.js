@@ -5,9 +5,10 @@ let restaurants,
 var map
 var markers = []
 
-document.addEventListener('load', () => {
-  document.getElementsByTagName('iframe')[0].title = "Google Maps";
-});
+// document.addEventListener('load', () => {
+//   document.querySelector('iframe').setAttribute("title", "Google Maps");
+//   document.querySelector('iframe').setAttribute("tabindex", "0");
+// });
 
 /**
  * Fetch neighborhoods and cuisines as soon as the page is loaded.
@@ -15,7 +16,6 @@ document.addEventListener('load', () => {
 document.addEventListener('DOMContentLoaded', (event) => {
   fetchNeighborhoods();
   fetchCuisines();
-  // document.getElementsByTagName('iframe')[0].title = "Google Maps";
 });
 
 /**
@@ -78,15 +78,17 @@ fillCuisinesHTML = (cuisines = self.cuisines) => {
  */
 window.initMap = () => {
   // document.getElementsByTagName('iframe')[0].title = "Google Maps";
+  var map_canvas = document.getElementById('map');
   let loc = {
     lat: 40.722216,
     lng: -73.987501
   };
-  self.map = new google.maps.Map(document.getElementById('map'), {
+  self.map = new google.maps.Map(map_canvas, {
     zoom: 12,
     center: loc,
     scrollwheel: false
   });
+  map_canvas.children[0].setAttribute("tabindex","-1");
   updateRestaurants();
 }
 
@@ -155,7 +157,7 @@ createRestaurantHTML = (restaurant) => {
   image.src = DBHelper.imageUrlForRestaurant(restaurant);
   li.append(image);
 
-  const name = document.createElement('h1');
+  const name = document.createElement('h3');
   name.innerHTML = restaurant.name;
   li.append(name);
 
