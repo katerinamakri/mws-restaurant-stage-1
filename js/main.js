@@ -190,3 +190,30 @@ addMarkersToMap = (restaurants = self.restaurants) => {
     self.markers.push(marker);
   });
 }
+
+/**
+ * Service Worker
+ */
+
+// self.addEventListener('fetch', function (event) {
+//   event.respondWith(
+//     fetch(event.request)then(function(response){
+//       if(response.status === 404){
+//         return new Response('Whoops, not found');
+//       }
+//       return response;
+//     }).catch(function (){
+//       return new Response("Uh oh,that totally failed!")
+//     })
+//   )
+// })
+
+if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('./service-worker.js').then( function(registration) {
+      console.log("Service Worker Registered", registration);
+    })
+    .catch(function(err) {
+      console.log("Service Worker Failed to Register", err);
+    })
+
+}
