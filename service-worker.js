@@ -22,11 +22,10 @@ var cacheFiles = [
     '/img/10.jpg'
 ]
 
-
-self.addEventListener('install', function(e) {
+self.addEventListener('install', function(event) {
     console.log('ServiceWorker Installed');
-    // e.waitUntil Delays the event until the Promise is resolved
-    e.waitUntil(
+    // event.waitUntil Delays the event until the Promise is resolved
+    event.waitUntil(
     	// Open the cache
 	    caches.open(cacheName).then(function(cache) {
 	    	// Add all the default files to the cache
@@ -36,21 +35,20 @@ self.addEventListener('install', function(e) {
 	);
 });
 
-self.addEventListener('fetch', function(e) {
-	console.log('ServiceWorker Fetch', e.request.url);
-	// e.respondWidth Responds to the fetch event
-	e.respondWith(
+self.addEventListener('fetch', function(event) {
+	console.log('ServiceWorker Fetch', event.request.url);
+	// event.respondWidth Responds to the fetch event
+	event.respondWith(
 		// Check in cache for the request being made
-		caches.match(e.request).then(function(response) {
+		caches.match(event.request).then(function(response) {
 				// If the request is in the cache
 				if ( response ) {
-					console.log("ServiceWorker Found in Cache", e.request.url, response);
-					// Return the cached version
+					console.log("ServiceWorker Found in Cache", event.request.url, response);
 					return response;
 				}
 				// If the request is NOT in the cache, fetch
-				return fetch(e.request);
-			})
+				return fetch(event.request);
+		})
 	);
 });
 
