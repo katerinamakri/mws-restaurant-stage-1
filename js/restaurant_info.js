@@ -57,7 +57,7 @@ fillRestaurantHTML = (restaurant = self.restaurant) => {
 
   const image = document.getElementById('restaurant-img');
   image.className = 'restaurant-img';
-  image.alt = restaurant.name ;
+  image.alt = 'Image of ' + restaurant.name + ' Restaurant' ;
   image.src = DBHelper.imageUrlForRestaurant(restaurant);
 
   const cuisine = document.getElementById('restaurant-cuisine');
@@ -163,3 +163,17 @@ getParameterByName = (name, url) => {
     return '';
   return decodeURIComponent(results[2].replace(/\+/g, ' '));
 }
+
+/**
+ * Service Worker
+ */
+
+if (navigator.serviceWorker) {
+navigator.serviceWorker.register('./service-worker.js').then( function(registration) {
+    console.log("Service Worker Registered", registration);
+  })
+  .catch(function(err) {
+    console.log("Service Worker Failed to Register", err);
+  })
+}
+

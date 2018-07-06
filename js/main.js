@@ -158,7 +158,7 @@ createRestaurantHTML = (restaurant) => {
   li.append(image);
 
   const name = document.createElement('h3');
-  name.innerHTML = restaurant.name;
+  name.innerHTML = 'Image of ' + restaurant.name + ' Restaurant' ;
   li.append(name);
 
   const neighborhood = document.createElement('p');
@@ -195,10 +195,11 @@ addMarkersToMap = (restaurants = self.restaurants) => {
  * Service Worker
  */
 
-if (!navigator.serviceWorker) return 
+if (navigator.serviceWorker) {
 navigator.serviceWorker.register('./service-worker.js').then( function(registration) {
     console.log("Service Worker Registered", registration);
   })
   .catch(function(err) {
     console.log("Service Worker Failed to Register", err);
   })
+}
